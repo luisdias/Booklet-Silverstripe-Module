@@ -26,7 +26,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <% base_tag %>
     <title>Booklet - Silverstripe module</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <script type="text/javascript" src="{$BaseHref}booklet/javascript/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{$BaseHref}booklet/javascript/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="{$BaseHref}booklet/javascript/jquery.booklet.1.2.0.js"></script>
