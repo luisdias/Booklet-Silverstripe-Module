@@ -114,6 +114,44 @@ class BookletHolder extends Page {
     }
     
     public function getCMSFields() {
+        $directionOptions = array('LTR'=>'Left to Right','RTL'=>'Right to Left');
+        $easingOptions = array(
+            'easeInOutQuad' => 'easeInOutQuad' ,
+            'easeInOutCubic' => 'easeInOutCubic',
+            'easeInOutQuart' => 'easeInOutQuart',
+            'easeInOutQuint' => 'easeInOutQuint',
+            'easeInOutSine' => 'easeInOutSine',
+            'easeInOutExpo' => 'easeInOutExpo',
+            'easeInOutCirc' => 'easeInOutCirc',
+            'easeInOutElastic' => 'easeInOutElastic',
+            'easeInOutBack' => 'easeInOutBack',
+            'easeInOutBounce' => 'easeInOutBounce'
+        );
+        $easingInOptions = array(
+            'easeInQuad' => 'easeInQuad' ,
+            'easeInCubic' => 'easeInCubic',
+            'easeInQuart' => 'easeInQuart',
+            'easeInQuint' => 'easeInQuint',
+            'easeInSine' => 'easeInSine',
+            'easeInExpo' => 'easeInExpo',
+            'easeInCirc' => 'easeInCirc',
+            'easeInElastic' => 'easeInElastic',
+            'easeInBack' => 'easeInBack',
+            'easeInBounce' => 'easeInBounce'
+        );                
+        $easingOutOptions = array(
+            'easeOutQuad' => 'easeOutQuad' ,
+            'easeOutCubic' => 'easeOutCubic',
+            'easeOutQuart' => 'easeOutQuart',
+            'easeOutQut' => 'easeOutQut',
+            'easeOutSe' => 'easeOutSe',
+            'easeOutExpo' => 'easeOutExpo',
+            'easeOutCirc' => 'easeOutCirc',
+            'easeOutElastic' => 'easeOutElastic',
+            'easeOutBack' => 'easeOutBack',
+            'easeOutBounce' => 'easeOutBounce'
+        );
+        
         $fields = parent::getCMSFields();
         $fields->addFieldsToTab('Root.Content.Options',
             array(
@@ -121,11 +159,11 @@ class BookletHolder extends Page {
                 new NumericField('Width','Width : container width'),
                 new NumericField('Height','Height : container height'),
                 new NumericField('Speed','Speed : speed of the transition between pages'),
-                new TextField('Direction','Direction : direction of the overall content organization, default LTR, left to right, can be RTL for languages which read right to left'),
+                new DropdownField('Direction','Direction : direction of the overall content organization, default LTR, left to right, can be RTL for languages which read right to left',$directionOptions),
                 new NumericField('StartingPage','Starting Page : index of the first page to be displayed'),
-                new TextField('Easing','Easing : easing method for complete transition'),
-                new TextField('EaseIn','Ease In : easing method for first half of transition'),
-                new TextField('EaseOut','Ease Out : easing method for second half of transition'),
+                new DropdownField('Easing','Easing : easing method for complete transition',$easingOptions),
+                new DropdownField('EaseIn','Ease In : easing method for first half of transition',$easingInOptions),
+                new DropdownField('EaseOut','Ease Out : easing method for second half of transition',$easingOutOptions),
                 new CheckboxField('Closed','Closed : start with the book "closed", will add empty pages to beginning and end of book'),
                 new TextField('ClosedFrontTitle'),
 
@@ -167,5 +205,6 @@ class BookletHolder extends Page {
 }
 
 class BookletHolder_Controller extends Page_Controller {
+
     
 }
