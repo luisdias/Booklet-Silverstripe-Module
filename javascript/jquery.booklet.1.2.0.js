@@ -215,10 +215,10 @@ function booklet(target, options, id){
 						}
 					}
 					dd.find('.b-current').text(nums);
-					ddLI = $('<li><a href="#/page/'+ (i+1) +'" id="selector-page-'+i+'"><span class="b-text">'+ titles[i+1] +'</span><span class="b-num">'+ nums +'</span></a></li>').prependTo(ddUL);
+					ddLI = $('<li><a href="'+opts.urlSegment+'#/page/'+ (i+1) +'" id="selector-page-'+i+'"><span class="b-text">'+ titles[i+1] +'</span><span class="b-num">'+ nums +'</span></a></li>').prependTo(ddUL);
 				}else{
 					if(i==0){dd.find('.b-current').text(nums);}
-					ddLI = $('<li><a href="#/page/'+ (i+1) +'" id="selector-page-'+i+'"><span class="b-text">'+ titles[i] +'</span><span class="b-num">'+ nums +'</span></a></li>').appendTo(ddUL);
+					ddLI = $('<li><a href="'+opts.urlSegment+'#/page/'+ (i+1) +'" id="selector-page-'+i+'"><span class="b-text">'+ titles[i] +'</span><span class="b-num">'+ nums +'</span></a></li>').appendTo(ddUL);
 				}
 				
 				ddA = ddLI.find('a');
@@ -1226,7 +1226,8 @@ $.fn.booklet.defaults = {
 	shadowBtmWidth:     50,                              // shadow width for bottom shadow
 	
 	before:             function(){},                    // callback invoked before each page turn animation
-	after:              function(){}                     // callback invoked after each page turn animation
+	after:              function(){},                     // callback invoked after each page turn animation
+        urlSegment:         ''                               // LDI - UrlSegment for silverstripe module
 }
 	
 })(jQuery);
