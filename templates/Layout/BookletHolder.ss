@@ -34,7 +34,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <link rel="stylesheet" href="{$BaseHref}booklet/css/jquery.booklet.1.2.0.css" type="text/css" media="screen" />
 
     <script type="text/javascript">
-
+    
     $(function(){
 	$("#mybook").booklet({
             <% if Name %>
@@ -114,8 +114,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <% else %>
                 play:               null,
             <% end_if %>
-            <% if Menu %>
-                menu:               '$Menu',
+            <% if BookletMenu %>
+                menu:               '$BookletMenu',
             <% else %>
                 menu:               null,
             <% end_if %>
@@ -125,7 +125,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             shadows:            $Shadows,
             shadowTopFwdWidth:  $ShadowTopFwdWidth,
             shadowTopBackWidth: $ShadowTopBackWidth,
-            shadowBtmWidth:     $ShadowBtmWidth
+            shadowBtmWidth:     $ShadowBtmWidth,
+            before:             function(){},
+            after:              function(){},
+            urlSegment :        '$URLSegment'
 	
 	});
     });
@@ -133,15 +136,17 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 </head>
 <body>
+<div id="custom-menu"></div>
 <div id="mybook">
     <div class="b-load">
     <% control Children %>
-        <div> 
+        <div title="$Title"> 
             <h3>$Title</h3>
             $Content
         </div>
     <% end_control %>
     </div>
 </div>
+$Content
 </body>
 </html>
