@@ -236,6 +236,11 @@ class BookletHolder extends Page {
         );
         
         return $fields;
+    }
+    
+    function getCMSValidator() 
+    { 
+      return new RequiredFields('Name','Width','Height','Speed'); 
     }    
 }
 
