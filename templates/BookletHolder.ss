@@ -36,14 +36,21 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <script type="text/javascript">
     
     $(function(){
+        var bttn_next = $("#next_page_button");
+        var bttn_prev = $("#prev_page_button");
 	$("#mybook").booklet({
             <% if Name %>
                 name:               '$Name',
             <% else %>
                 name:               null,
             <% end_if %>
-            width:              $Width,
-            height:             $Height,
+            <% if MoleskineTheme %>
+                width:              800,
+                height:             500,                    
+            <% else %>
+                width:              $Width,
+                height:             $Height,
+            <% end_if %>
             speed:              $Speed,
             direction:          '$Direction',
             startingPage:       $StartingPage,
@@ -91,15 +98,20 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             hash:               $Hash,
             keyboard:           $Keyboard,
-            <% if Next %>
-                next:               '$Next',
-            <% else %>
-                next:               null,
-            <% end_if %>
-            <% if Prev %>
-                prev:               '$Prev',
-            <% else %>
-                prev:               null,
+            <% if MoleskineTheme %>
+                next: bttn_next,
+                prev: bttn_prev,                     
+            <% else %>                    
+                <% if Next %>
+                    next:               '$Next',
+                <% else %>
+                    next:               null,
+                <% end_if %>
+                <% if Prev %>
+                    prev:               '$Prev',
+                <% else %>
+                    prev:               null,
+                <% end_if %>
             <% end_if %>
             auto:               $Auto,
             delay:              $Delay,
@@ -131,17 +143,23 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             urlSegment :        '$URLSegment'
 	
 	});
+        bttn_next.show();
+        bttn_prev.show();
     });
     </script>
 
 </head>
 <body>
 <div id="custom-menu"></div>
-<div id="mybook">
-    <div class="b-load">
-        $Layout
+<div class="book_wrapper">
+    <a id="next_page_button"></a>
+    <a id="prev_page_button"></a>
+    <div id="mybook">
+        <div class="b-load">
+            $Layout
+        </div>
     </div>
+    $Content
 </div>
-$Content
 </body>
 </html>

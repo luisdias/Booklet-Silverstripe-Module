@@ -23,6 +23,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 class BookletHolder extends Page {
     static $db = array(
+        'MoleskineTheme' => 'Boolean',
         'Name' => 'Varchar',
         'Width' => 'Int',
         'Height' => 'Int',
@@ -69,7 +70,8 @@ class BookletHolder extends Page {
     
     public function populateDefaults() {
         parent::populateDefaults();
-        $this->Name = null;        
+        $this->MoleskineTheme = 1;
+        $this->Name = null;
         $this->Width = 600;
         $this->Height = 400;
         $this->Speed = 1000;
@@ -153,7 +155,8 @@ class BookletHolder extends Page {
         );
         
         $fields = parent::getCMSFields();
-        $fields->addFieldsToTab('Root.Content.MainOptions',
+        $fields->addFieldToTab('Root.Content.Main',new CheckboxField('MoleskineTheme','Use Moleskine theme by Codrops ( forces width to 800 and height to 500 )'),'Content');
+        $fields->addFieldsToTab('Root.Content.Options',
             array(
                 new TextField('Name','Name : name of the booklet to display in the document title bar'),
                 new NumericField('Width','Width : container width'),
@@ -249,6 +252,9 @@ class BookletHolder_Controller extends Page_Controller {
     public function init() {
         parent::init();
         SSViewer::setOption('rewriteHashlinks', false);
+        if ( $this->MoleskineTheme == 1 )
+            Requirements::themedCSS('style');          
     }
-    
+
+  
 }
