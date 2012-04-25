@@ -16,17 +16,17 @@ jQuery libray loaded from Google at BookletHolder.ss file
 The Booklet Silverstripe Module is based on:  
 
 Booklet jQuery Plugin  
-(http://builtbywill.com/code/booklet/)
+http://builtbywill.com/code/booklet/
 
 CSS Written by Mary Lou (Manoela Ilic)  
-(http://tympanus.net/codrops/2010/12/14/moleskine-notebook/)  
-Website: (http://tympanus.net/)
+http://tympanus.net/codrops/2010/12/14/moleskine-notebook/  
+Website: http://tympanus.net/
 
 Moleskine Photoshop file by Dennern at deviantart here:  
-(http://dennern.deviantart.com/art/My-Moleskine-79177093)  
+http://dennern.deviantart.com/art/My-Moleskine-79177093  
 
 Navigation arrows by Premium Pixels:  
-(http://www.premiumpixels.com/freebies/simple-little-arrows-psd/)  
+http://www.premiumpixels.com/freebies/simple-little-arrows-psd/  
 
 ## Installation  
 * Unpack the files in a folder called booklet  
