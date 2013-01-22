@@ -10,19 +10,6 @@ Navigation arrows by Premium Pixels:
 http://www.premiumpixels.com/freebies/simple-little-arrows-psd/
 */
 
-*{
-	margin:0;
-	padding:0;
-}
-html{
-   	background:#ccc url(../images/moleskine/wood.jpg) repeat top left; 
-}
-body{
-	font-family: Arial, Helvetica, sans-serif;
-	color:#444;
-	font-size:12px;
-	color: #000;
-}
 h1{
 	color:#2F1B0C;
 	font-size:40px;
@@ -44,6 +31,7 @@ span.reference a{
 span.reference a:hover{
 	color:#ddd;
 }
+
 /* Booklet jQuery Plugin Style*/
 .booklet{
 	-moz-box-shadow:0px 0px 1px #fff;
@@ -92,9 +80,10 @@ span.reference a:hover{
 	margin:0 auto;
 	padding-top:50px;
 	width:905px;
-	height:540px;
+	height:auto;
 	position:relative;
 	background:transparent url(../images/moleskine/bg.png) no-repeat 9px 27px;
+        float: none;
 }
 .book_wrapper h1{
 	color:#13386a;
@@ -141,8 +130,8 @@ span.reference a:hover{
 .booklet .b-wrap-right img{
 	border:1px solid #E6E3C2;
 }
-a#next_page_button,
-a#prev_page_button{
+.book_wrapper a#next_page_button,
+.book_wrapper a#prev_page_button{
 	display:none;
 	position:absolute;
 	width:41px;
@@ -152,17 +141,17 @@ a#prev_page_button{
 	top:50%;
 	background:transparent url(../images/moleskine/buttons.png) no-repeat 0px -40px;
 }
-a#prev_page_button{
+.book_wrapper a#prev_page_button{
 	left:-30px;
 }
-a#next_page_button{
+.book_wrapper a#next_page_button{
 	right:-30px;
 	background-position:-41px -40px;
 }
-a#next_page_button:hover{
+.book_wrapper a#next_page_button:hover{
 	background-position:-41px 0px;
 }
-a#prev_page_button:hover{
+.book_wrapper a#prev_page_button:hover{
 	background-position:0px 0px;
 }
 .loading{
