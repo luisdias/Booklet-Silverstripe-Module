@@ -42,17 +42,26 @@ class BookletHolder extends Page {
         'AutoCenter' => 'Boolean',
         'PagePadding' => 'Int',
         'PageNumbers' => 'Boolean',
+        'PageBorder' => 'Int',
         'Manual' => 'Boolean',
         'Hovers' => 'Boolean',
+        'HoverWidth' => 'Int',
+        'HoverSpeed' => 'Int',
+        'HoverTreshold' => 'Currency',
+        'HoverClick' => 'Boolean',        
         'Overlays' => 'Boolean',
         'Tabs' => 'Boolean',
         'TabWidth' => 'Int',
         'TabHeight' => 'Int',
+        'NextControlText' => 'Varchar',
+        'PreviousControlText' => 'Varchar',
+        'NextControlTitle' => 'Varchar',
+        'PreviousControlTitle' => 'Varchar',
         'Arrows' => 'Boolean',
         'ArrowsHide' => 'Boolean',
         'Cursor' => 'Varchar',
         'Hash' => 'Boolean',
-        'Keyboard' => 'Boolean',
+        'HashTitleText' => 'Varchar',
         'Next' => 'Varchar',
         'Prev' => 'Varchar',
         'Auto' => 'Boolean',
@@ -71,6 +80,7 @@ class BookletHolder extends Page {
     public function populateDefaults() {
         parent::populateDefaults();
         $this->MoleskineTheme = 1;
+        // General
         $this->Name = null;
         $this->Width = 600;
         $this->Height = 400;
@@ -80,6 +90,7 @@ class BookletHolder extends Page {
         $this->Easing = 'easeInOutQuad';
         $this->EaseIn = 'easeInQuad';
         $this->EaseOut = 'easeOutQuad';
+        // Closed / Covers
         $this->Closed = false;
         $this->ClosedFrontTitle = null;
         $this->ClosedFrontChapter = null;
@@ -87,19 +98,30 @@ class BookletHolder extends Page {
         $this->ClosedBackChapter = null;
         $this->Covers = false;
         $this->AutoCenter = false;
+        // Pages
         $this->PagePadding = 10;
         $this->PageNumbers = true;
+        $this->PageBorder = 0;
+        // Controls
         $this->Manual = true;
         $this->Hovers = true;
-        $this->Overlays = true;
+        $this->HoverWidth = 50;
+        $this->HoverSpeed = 500;
+        $this->hoverTreshold = 0.25;
+        $this->HoverClick = true;        
+        $this->Overlays = false;
         $this->Tabs = false;
         $this->TabWidth = 60;
         $this->TabHeight = 20;
+        $this->NextControlText = "Next";
+        $this->PreviousControlText = "Previous";
+        $this->NextControlTitle = "Next Page";
+        $this->PreviousControlTitle = "Previous Page";        
         $this->Arrows = false;
         $this->ArrowsHide = false;
         $this->Cursor = 'pointer';
         $this->Hash = false;
-        $this->Keyboard = true;
+        $this->HashTitleText = " - Page";
         $this->Next = null;
         $this->Prev = null;
         $this->Auto = false;
@@ -109,6 +131,7 @@ class BookletHolder extends Page {
         $this->BookletMenu = null;
         $this->PageSelector = false;
         $this->ChapterSelector = false;
+        // Shadows
         $this->Shadows = true;
         $this->ShadowTopFwdWidth = 166;
         $this->ShadowTopBackWidth = 166;
@@ -156,7 +179,7 @@ class BookletHolder extends Page {
         
         $fields = parent::getCMSFields();
         $fields->addFieldToTab('Root.Content.Main',new CheckboxField('MoleskineTheme','Use Moleskine theme by Codrops ( forces width to 800 and height to 500 )'),'Content');
-        $fields->addFieldsToTab('Root.Content.Options',
+        $fields->addFieldsToTab('Root.Content.General',
             array(
                 new TextField('Name','Name : name of the booklet to display in the document title bar'),
                 new NumericField('Width','Width : container width'),
@@ -182,50 +205,44 @@ class BookletHolder extends Page {
             )
         );
         
-        $fields->addFieldsToTab('Root.Content.Page',
+        $fields->addFieldsToTab('Root.Content.Pages',
             array(         
                 new NumericField('PagePadding','Page Padding : padding for each page wrapper'),
                 new CheckboxField('PageNumbers','Page Numbers : display page numbers on each page'),
-            )
-        );
-        
-        $fields->addFieldsToTab('Root.Content.Manual',
-            array(                
-                new CheckboxField('Manual','Manual : enables manual page turning, requires jQuery UI to function'),
+                new NumericField('PageBorder','Page Border : the size of the border around each page')
             )
         );
         
         $fields->addFieldsToTab('Root.Content.Controls',
             array(                
+                new CheckboxField('Manual','Manual : enables manual page turning, requires jQuery UI to function'),
                 new CheckboxField('Hovers','Hovers : enables preview pageturn hover animation, shows a small preview of previous or next page on hover'),
+                new NumericField('HoverWidth','Hover Width : the width of the page turn hover preview'),
+                new NumericField('HoverSpeed','Hover Speed : the speed in milliseconds of the page turn hover preview'),                
+                new NumericField('HoverTreshold','Hover Treshold : the percentage used with manual page dragging'),                
+                new CheckboxField('HoverClick','Hover Click : enables a click on the page turn hover preview'),
                 new CheckboxField('Overlays','Overlays : enables navigation using a page sized overlay, when enabled links inside the content will not be clickable'),
                 new CheckboxField('Tabs','Tabs : adds tabs along the top of the pages'),
                 new NumericField('TabWidth','Tab Width : set the width of the tabs'),
-                new NumericField('TabHeight','Tab Height : set the height of the tabs'),
+                new NumericField('TabHeight','Tab Height : set the height of the tabs'),                
+                new TextField('NextControlText','Next Control Text : set the inline text for all next controls (tabs, arrows, etc'),
+                new TextField('PreviousControlText','Previous Control Text : set the inline text for all previous controls (tabs, arrows, etc.)'),
+                new TextField('NextControlTitle','Next Control Title : set the text for the title attributes of all next controls (tabs, arrows, etc)'),
+                new TextField('PreviousControlTitle','Previous Control Title : set text for title attributes of all previous controls (tabs, arrows, etc.)'),
                 new CheckboxField('Arrows','Arrows : adds arrows overlayed over the book edges'),
                 new CheckboxField('ArrowsHide','Arrows Hide : auto hides arrows when controls are not hovered'),
                 new TextField('Cursor','Cursor : cursor css setting for side bar areas'),
-            )
-        );
-        
-        $fields->addFieldsToTab('Root.Content.Navigation',
-            array(
                 new CheckboxField('Hash','Hash : enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with "hash" enabled'),
-                new CheckboxField('Keyboard','Keyboard : enables navigation with arrow keys (left: previous, right: next)'),
+                new TextField('HashTitleText','Hash Title Text : text which forms the hash page title'),                
                 new TextField('Next','Next : selector for element to use as click trigger for next page'),
                 new TextField('Prev','Prev : selector for element to use as click trigger for previous page'),
                 new CheckboxField('Auto','Auto : enables automatic navigation, requires "delay"'),
                 new NumericField('Delay','Delay : amount of time between automatic page flipping'),
                 new TextField('Pause','Pause : selector for element to use as click trigger for pausing auto page flipping'),
                 new TextField('Play','Play : selector for element to use as click trigger for restarting auto page flipping'),
-            )
-        );
-        
-        $fields->addFieldsToTab('Root.Content.Menu',
-            array(
                 new TextField('BookletMenu','Menu : selector for element to use as the menu area, required for "pageSelector"'),
                 new CheckboxField('PageSelector','Page Selector : enables navigation with a dropdown menu of pages, requires "menu"'),
-                new CheckboxField('ChapterSelector','Chapter Selector : enables navigation with a dropdown menu of chapters, determined by the "rel" attribute, requires "menu"'),
+                new CheckboxField('ChapterSelector','Chapter Selector : enables navigation with a dropdown menu of chapters, determined by the "rel" attribute, requires "menu"'),                
             )
         );
         
@@ -250,11 +267,76 @@ class BookletHolder extends Page {
 class BookletHolder_Controller extends Page_Controller {
 
     public function init() {
+        $qt = "'"; // quote character
         parent::init();
+        Validator::set_javascript_validation_handler('none'); 
+        Requirements::block('sapphire/thirdparty/prototype/prototype.js'); 
+        Requirements::block('sapphire/thirdparty/behaviour/behaviour.js'); 
+        Requirements::block('sapphire/javascript/prototype_improvements.js'); 
+        Requirements::block('sapphire/javascript/Validator.js'); 
+        Requirements::block('sapphire/javascript/i18n.js'); 
+        Requirements::block('sapphire/javascript/lang/en_US.js');                                 
+        
+        //Requirements::javascript("//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js");
+        Requirements::javascript("booklet/javascript/jquery-ui.min.1.8.21.js");
+        Requirements::javascript("booklet/javascript/jquery.easing.1.3.js");
+        Requirements::javascript("booklet/javascript/jquery.booklet.1.4.0.js");
+        Requirements::css("booklet/css/jquery.booklet.1.4.0.css");
         SSViewer::setOption('rewriteHashlinks', false);
         if ( $this->MoleskineTheme == 1 )
-            Requirements::themedCSS('style');          
+            Requirements::css("booklet/css/moleskine.css");
+        Requirements::javascriptTemplate('booklet/javascript/booklet.js', array(
+            name =>               $qt .$this->Name . $qt,
+            width =>              ($this->MoleskineTheme ? "800" : $this->Width),
+            height =>             ($this->MoleskineTheme ? "500" : $this->Height),
+            speed =>              $this->Speed,
+            direction =>          $qt . $this->Direction . $qt,
+            startingPage =>       $this->StartingPage,
+            easing =>             $qt . $this->Easing . $qt,
+            easeIn =>             $qt . $this->EaseIn . $qt,
+            easeOut =>            $qt . $this->EaseOut . $qt,
+            closed =>             $this->Closed,
+            cFrontTitle =>   ( $this->ClosedFrontTitle ? $qt . $this->ClosedFrontTitle . $qt : "null"),
+            cFrontChapter => ( $this->ClosedFrontChapter ? $qt .$this->ClosedFrontChapter . $qt : "null"),
+            cBackTitle =>    ( $this->ClosedBackTitle ? $qt .$this->ClosedBackTitle . $qt : "null"),
+            cBackChapter =>  ( $this->ClosedBackChapter ? $qt .$this->ClosedBackChapter . $qt : "null"),
+            covers =>             $this->Covers,
+            autoCenter =>         $this->AutoCenter,
+            pagePadding =>        $this->PagePadding,
+            pageNumbers =>        $this->PageNumbers,
+            pageBorder =>         $this->PageBorder,
+            manual =>             $this->Manual,
+            hovers =>             $this->Hovers,
+            hoverWidth =>         $this->HoverWidth,
+            hoverSpeed =>         $this->HoverSpeed,
+            hoverTreshold =>      $this->HoverTreshold,
+            hoverClick =>         $this->HoverClick,            
+            overlays =>           $this->Overlays,
+            tabs =>               $this->Tabs,
+            tabWidth =>           $this->TabWidth,
+            tabHeight =>          $this->TabHeight,
+            nextControlText =>     $qt . $this->NextControlText . $qt,
+            previousControlText => $qt . $this->PreviousControlText . $qt,
+            nextControlTitle =>    $qt . $this->NextControlTitle . $qt,
+            previousControlTitle => $qt . $this->PreviousControlTitle . $qt,            
+            arrows =>             $this->Arrows,
+            aHide =>              $this->ArrowsHide,
+            cursor =>             $qt . $this->Cursor  . $qt,
+            hash =>               $this->Hash,
+            hTitleText =>         $qt . $this->HashTitleText . $qt,
+            next =>               ( $this->MoleskineTheme ? "bttn_next" : ( $this->Next ? $qt . $this->Next . $qt : "null")),
+            prev =>               ( $this->MoleskineTheme ? "bttn_prev" : ( $this->Prev ? $qt . $this->Prev . $qt : "null")), 
+            auto =>               $this->Auto,
+            delay =>              $this->Delay,
+            pause =>              ( $this->Pause ? $qt . $this->Pause . $qt : "null" ),
+            play =>               ( $this->Play ? $qt . $this->Play . $qt : "null" ),
+            menu =>               ( $this->BookletMenu ? $qt . $this->BookletMenu . $qt : "null"),
+            pageSelector =>       $this->PageSelector,
+            chapterSelector =>    $this->ChapterSelector,
+            shadows =>            $this->Shadows,
+            shadowTopFwdWidth =>  $this->ShadowTopFwdWidth,
+            shadowTopBackWidth => $this->ShadowTopBackWidth,
+            shadowBtmWidth =>     $this->ShadowBtmWidth
+            ));
     }
-
-  
 }
