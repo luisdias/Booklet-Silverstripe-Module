@@ -1,6 +1,6 @@
 <?php
 /*
-Copyright (c) 2012 Luis E. S. Dias - smartbyte.systems@gmail.com
+Copyright (c) 2013 Luis E. S. Dias - smartbyte.systems@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -277,7 +277,7 @@ class BookletHolder_Controller extends Page_Controller {
         Requirements::block('sapphire/javascript/i18n.js'); 
         Requirements::block('sapphire/javascript/lang/en_US.js');                                 
         
-        //Requirements::javascript("//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js");
+        Requirements::javascript("booklet/javascript/jquery-1.9.0.min.js");
         Requirements::javascript("booklet/javascript/jquery-ui.min.1.8.21.js");
         Requirements::javascript("booklet/javascript/jquery.easing.1.3.js");
         Requirements::javascript("booklet/javascript/jquery.booklet.1.4.0.js");
