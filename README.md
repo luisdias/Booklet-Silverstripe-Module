@@ -1,5 +1,10 @@
 # Booklet Silverstripe Module  
 
+**Changelog for version 0.2**  
+* enhancement: update to jQuery Booklet plugin version 1.4.0  
+* enhancement: major layout improvements  
+* Silverstripe 2.4x module  
+
 ## Author contact  
 Luis E. S. Dias  
 smartbyte.systems@gmail.com  
