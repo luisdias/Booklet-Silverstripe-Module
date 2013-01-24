@@ -266,9 +266,9 @@ class BookletHolder extends Page {
 
 class BookletHolder_Controller extends Page_Controller {
 
-    public function init() {
-        $qt = "'"; // quote character
+    public function init() {        
         parent::init();
+        $qt = "'"; // quote character
         SSViewer::setOption('rewriteHashlinks', false);
         Validator::set_javascript_validation_handler('none'); 
         Requirements::block('sapphire/thirdparty/prototype/prototype.js'); 
@@ -279,6 +279,7 @@ class BookletHolder_Controller extends Page_Controller {
         Requirements::block('sapphire/javascript/lang/en_US.js');                                 
         
         // Warning! Make sure your site has not loaded one of these 3 libraries
+        // to prevent double loading
         Requirements::javascript("https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js");
         Requirements::javascript("https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js");
         Requirements::javascript("booklet/javascript/jquery.easing.1.3.js");
