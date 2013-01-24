@@ -277,8 +277,8 @@ class BookletHolder_Controller extends Page_Controller {
         Requirements::block('sapphire/javascript/i18n.js'); 
         Requirements::block('sapphire/javascript/lang/en_US.js');                                 
         
-        Requirements::javascript("booklet/javascript/jquery-1.9.0.min.js");
-        Requirements::javascript("booklet/javascript/jquery-ui.min.1.8.21.js");
+        Requirements::javascript("//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js");
+        Requirements::javascript("//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js");
         Requirements::javascript("booklet/javascript/jquery.easing.1.3.js");
         Requirements::javascript("booklet/javascript/jquery.booklet.1.4.0.js");
         Requirements::css("booklet/css/jquery.booklet.1.4.0.css");
