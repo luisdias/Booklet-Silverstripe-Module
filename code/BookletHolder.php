@@ -269,6 +269,7 @@ class BookletHolder_Controller extends Page_Controller {
     public function init() {
         $qt = "'"; // quote character
         parent::init();
+        SSViewer::setOption('rewriteHashlinks', false);
         Validator::set_javascript_validation_handler('none'); 
         Requirements::block('sapphire/thirdparty/prototype/prototype.js'); 
         Requirements::block('sapphire/thirdparty/behaviour/behaviour.js'); 
@@ -277,14 +278,13 @@ class BookletHolder_Controller extends Page_Controller {
         Requirements::block('sapphire/javascript/i18n.js'); 
         Requirements::block('sapphire/javascript/lang/en_US.js');                                 
         
+        // Warning! Make sure your site has not loaded one of these 3 libraries
         Requirements::javascript("https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js");
         Requirements::javascript("https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js");
         Requirements::javascript("booklet/javascript/jquery.easing.1.3.js");
+        
         Requirements::javascript("booklet/javascript/jquery.booklet.1.4.0.js");
-        Requirements::css("booklet/css/jquery.booklet.1.4.0.css");
-        SSViewer::setOption('rewriteHashlinks', false);
-        if ( $this->MoleskineTheme == 1 )
-            Requirements::css("booklet/css/moleskine.css");
+        
         Requirements::javascriptTemplate('booklet/javascript/booklet.js', array(
             name =>               $qt .$this->Name . $qt,
             width =>              ($this->MoleskineTheme ? "800" : $this->Width),
@@ -338,5 +338,11 @@ class BookletHolder_Controller extends Page_Controller {
             shadowTopBackWidth => $this->ShadowTopBackWidth,
             shadowBtmWidth =>     $this->ShadowBtmWidth
             ));
+        
+            Requirements::css("booklet/css/jquery.booklet.1.4.0.css");        
+        
+            if ( $this->MoleskineTheme == 1 )
+                Requirements::css("booklet/css/moleskine.css");
+
     }
 }
