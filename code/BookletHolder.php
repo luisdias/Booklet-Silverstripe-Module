@@ -1,6 +1,6 @@
 <?php
 /*
-Copyright (c) 2012-2014 Luis E. S. Dias - smartbyte.systems@gmail.com
+Copyright (c) 2013-2014 Luis E. S. Dias - smartbyte.systems@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -248,10 +248,10 @@ class BookletHolder extends Page {
         
         $fields->addFieldsToTab('Root.Shadows',
             array(
-                CheckboxField::create('Shadows','Shadows : display shadows on page animations'),
-                NumericField::create('ShadowTopFwdWidth','Shadow Top Fwd Width : shadow width for top forward anim'),
-                NumericField::create('ShadowTopBackWidth','Shadow Top Back Width : shadow width for top back anim'),
-                NumericField::create('ShadowBtmWidth','Shadow Btm Width : shadow width for bottom shadow'),    
+                CheckboxField('Shadows','Shadows : display shadows on page animations'),
+                NumericField('ShadowTopFwdWidth','Shadow Top Fwd Width : shadow width for top forward anim'),
+                NumericField('ShadowTopBackWidth','Shadow Top Back Width : shadow width for top back anim'),
+                NumericField('ShadowBtmWidth','Shadow Btm Width : shadow width for bottom shadow'),    
             )
         );
         
@@ -266,9 +266,10 @@ class BookletHolder extends Page {
 
 class BookletHolder_Controller extends Page_Controller {
 
-    public function init() {
-        $qt = "'"; // quote character
+    public function init() {        
         parent::init();
+        $qt = "'"; // quote character
+        SSViewer::setOption('rewriteHashlinks', false);
         Validator::set_javascript_validation_handler('none'); 
         Requirements::block('sapphire/thirdparty/prototype/prototype.js'); 
         Requirements::block('sapphire/thirdparty/behaviour/behaviour.js'); 
@@ -277,14 +278,14 @@ class BookletHolder_Controller extends Page_Controller {
         Requirements::block('sapphire/javascript/i18n.js'); 
         Requirements::block('sapphire/javascript/lang/en_US.js');                                 
         
-        //Requirements::javascript("//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js");
+        // Warning! Make sure your site has not loaded one of these 3 libraries
+        // to prevent double loading
+        Requirements::javascript("booklet/javascript/jquery-1.9.1.min");
         Requirements::javascript("booklet/javascript/jquery-ui-1.10.1.custom.min.js");
         Requirements::javascript("booklet/javascript/jquery.easing.1.3.js");
+        
         Requirements::javascript("booklet/javascript/jquery.booklet.1.4.2.js");
-        Requirements::css("booklet/css/jquery.booklet.1.4.2.css");
-        SSViewer::setOption('rewriteHashlinks', false);
-        if ( $this->MoleskineTheme == 1 )
-            Requirements::css("booklet/css/moleskine.css");
+        
         Requirements::javascriptTemplate('booklet/javascript/booklet.js', array(
             name =>               $qt .$this->Name . $qt,
             width =>              ($this->MoleskineTheme ? "800" : $this->Width),
@@ -338,5 +339,11 @@ class BookletHolder_Controller extends Page_Controller {
             shadowTopBackWidth => $this->ShadowTopBackWidth,
             shadowBtmWidth =>     $this->ShadowBtmWidth
             ));
+        
+            Requirements::css("booklet/css/jquery.booklet.1.4.2.css");        
+        
+            if ( $this->MoleskineTheme == 1 )
+                Requirements::css("booklet/css/moleskine.css");
+
     }
 }
