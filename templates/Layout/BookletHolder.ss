@@ -4,12 +4,12 @@
     <a id="prev_page_button"></a>
     <div id="mybook">
         <div class="b-load">
-            <% control Children %>
+            <% loop Children %>
                 <div title="$Title"> 
                     <h3>$Title</h3>
                     $Content
                 </div>
-            <% end_control %>            
+            <% end_loop %>            
         </div>
     </div>
     $Content

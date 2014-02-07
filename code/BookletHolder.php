@@ -1,6 +1,6 @@
 <?php
 /*
-Copyright (c) 2012 Luis E. S. Dias - smartbyte.systems@gmail.com
+Copyright (c) 2012-2014 Luis E. S. Dias - smartbyte.systems@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -178,80 +178,80 @@ class BookletHolder extends Page {
         );
         
         $fields = parent::getCMSFields();
-        $fields->addFieldToTab('Root.Content.Main',new CheckboxField('MoleskineTheme','Use Moleskine theme by Codrops ( forces width to 800 and height to 500 )'),'Content');
-        $fields->addFieldsToTab('Root.Content.General',
+        $fields->addFieldToTab('Root.Main',CheckboxField('MoleskineTheme','Use Moleskine theme by Codrops ( forces width to 800 and height to 500 )'),'Content');
+        $fields->addFieldsToTab('Root.General',
             array(
-                new TextField('Name','Name : name of the booklet to display in the document title bar'),
-                new NumericField('Width','Width : container width'),
-                new NumericField('Height','Height : container height'),
-                new NumericField('Speed','Speed : speed of the transition between pages'),
-                new DropdownField('Direction','Direction : direction of the overall content organization, default LTR, left to right, can be RTL for languages which read right to left',$directionOptions),
-                new NumericField('StartingPage','Starting Page : index of the first page to be displayed'),
-                new DropdownField('Easing','Easing : easing method for complete transition',$easingOptions),
-                new DropdownField('EaseIn','Ease In : easing method for first half of transition',$easingInOptions),
-                new DropdownField('EaseOut','Ease Out : easing method for second half of transition',$easingOutOptions),
+                TextField::create('Name','Name : name of the booklet to display in the document title bar'),
+                NumericField::create('Width','Width : container width'),
+                NumericField::create('Height','Height : container height'),
+                NumericField::create('Speed','Speed : speed of the transition between pages'),
+                DropdownField::create('Direction','Direction : direction of the overall content organization, default LTR, left to right, can be RTL for languages which read right to left',$directionOptions),
+                NumericField::create('StartingPage','Starting Page : index of the first page to be displayed'),
+                DropdownField::create('Easing','Easing : easing method for complete transition',$easingOptions),
+                DropdownField::create('EaseIn','Ease In : easing method for first half of transition',$easingInOptions),
+                DropdownField::create('EaseOut','Ease Out : easing method for second half of transition',$easingOutOptions),
             )
         );
         
-        $fields->addFieldsToTab('Root.Content.Closed',
+        $fields->addFieldsToTab('Root.Closed',
             array(        
-                new CheckboxField('Closed','Closed : start with the book "closed", will add empty pages to beginning and end of book'),
-                new TextField('ClosedFrontTitle'),
-                new TextField('ClosedFrontChapter','Closed Front Chapter : used with "closed", "menu" and "pageSelector", determines title of blank starting page'),
-                new TextField('ClosedBackTitle','Closed Back Title : used with "closed", "menu" and "pageSelector", determines chapter name of blank ending page'),
-                new TextField('ClosedBackChapter','Closed Back Chapter : used with "closed", "menu" and "chapterSelector", determines chapter name of blank ending page'),
-                new CheckboxField('Covers','Covers : used with "closed", makes first and last pages into covers, without page numbers (if enabled)'),
-                new CheckboxField('AutoCenter','Auto Center : used with "closed", makes book position in center of container when closed'),
+                CheckboxField::create('Closed','Closed : start with the book "closed", will add empty pages to beginning and end of book'),
+                TextField::create('ClosedFrontTitle'),
+                TextField::create('ClosedFrontChapter','Closed Front Chapter : used with "closed", "menu" and "pageSelector", determines title of blank starting page'),
+                TextField::create('ClosedBackTitle','Closed Back Title : used with "closed", "menu" and "pageSelector", determines chapter name of blank ending page'),
+                TextField::create('ClosedBackChapter','Closed Back Chapter : used with "closed", "menu" and "chapterSelector", determines chapter name of blank ending page'),
+                CheckboxField::create('Covers','Covers : used with "closed", makes first and last pages into covers, without page numbers (if enabled)'),
+                CheckboxField::create('AutoCenter','Auto Center : used with "closed", makes book position in center of container when closed'),
             )
         );
         
-        $fields->addFieldsToTab('Root.Content.Pages',
+        $fields->addFieldsToTab('Root.Pages',
             array(         
-                new NumericField('PagePadding','Page Padding : padding for each page wrapper'),
-                new CheckboxField('PageNumbers','Page Numbers : display page numbers on each page'),
-                new NumericField('PageBorder','Page Border : the size of the border around each page')
+                NumericField::create('PagePadding','Page Padding : padding for each page wrapper'),
+                CheckboxField::create('PageNumbers','Page Numbers : display page numbers on each page'),
+                NumericField::create('PageBorder','Page Border : the size of the border around each page')
             )
         );
         
-        $fields->addFieldsToTab('Root.Content.Controls',
+        $fields->addFieldsToTab('Root.Controls',
             array(                
-                new CheckboxField('Manual','Manual : enables manual page turning, requires jQuery UI to function'),
-                new CheckboxField('Hovers','Hovers : enables preview pageturn hover animation, shows a small preview of previous or next page on hover'),
-                new NumericField('HoverWidth','Hover Width : the width of the page turn hover preview'),
-                new NumericField('HoverSpeed','Hover Speed : the speed in milliseconds of the page turn hover preview'),                
-                new NumericField('HoverTreshold','Hover Treshold : the percentage used with manual page dragging'),                
-                new CheckboxField('HoverClick','Hover Click : enables a click on the page turn hover preview'),
-                new CheckboxField('Overlays','Overlays : enables navigation using a page sized overlay, when enabled links inside the content will not be clickable'),
-                new CheckboxField('Tabs','Tabs : adds tabs along the top of the pages'),
-                new NumericField('TabWidth','Tab Width : set the width of the tabs'),
-                new NumericField('TabHeight','Tab Height : set the height of the tabs'),                
-                new TextField('NextControlText','Next Control Text : set the inline text for all next controls (tabs, arrows, etc'),
-                new TextField('PreviousControlText','Previous Control Text : set the inline text for all previous controls (tabs, arrows, etc.)'),
-                new TextField('NextControlTitle','Next Control Title : set the text for the title attributes of all next controls (tabs, arrows, etc)'),
-                new TextField('PreviousControlTitle','Previous Control Title : set text for title attributes of all previous controls (tabs, arrows, etc.)'),
-                new CheckboxField('Arrows','Arrows : adds arrows overlayed over the book edges'),
-                new CheckboxField('ArrowsHide','Arrows Hide : auto hides arrows when controls are not hovered'),
-                new TextField('Cursor','Cursor : cursor css setting for side bar areas'),
-                new CheckboxField('Hash','Hash : enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with "hash" enabled'),
-                new TextField('HashTitleText','Hash Title Text : text which forms the hash page title'),                
-                new TextField('Next','Next : selector for element to use as click trigger for next page'),
-                new TextField('Prev','Prev : selector for element to use as click trigger for previous page'),
-                new CheckboxField('Auto','Auto : enables automatic navigation, requires "delay"'),
-                new NumericField('Delay','Delay : amount of time between automatic page flipping'),
-                new TextField('Pause','Pause : selector for element to use as click trigger for pausing auto page flipping'),
-                new TextField('Play','Play : selector for element to use as click trigger for restarting auto page flipping'),
-                new TextField('BookletMenu','Menu : selector for element to use as the menu area, required for "pageSelector"'),
-                new CheckboxField('PageSelector','Page Selector : enables navigation with a dropdown menu of pages, requires "menu"'),
-                new CheckboxField('ChapterSelector','Chapter Selector : enables navigation with a dropdown menu of chapters, determined by the "rel" attribute, requires "menu"'),                
+                CheckboxField::create('Manual','Manual : enables manual page turning, requires jQuery UI to function'),
+                CheckboxField::create('Hovers','Hovers : enables preview pageturn hover animation, shows a small preview of previous or next page on hover'),
+                NumericField::create('HoverWidth','Hover Width : the width of the page turn hover preview'),
+                NumericField::create('HoverSpeed','Hover Speed : the speed in milliseconds of the page turn hover preview'),                
+                NumericField::create('HoverTreshold','Hover Treshold : the percentage used with manual page dragging'),                
+                CheckboxField::create('HoverClick','Hover Click : enables a click on the page turn hover preview'),
+                CheckboxField::create('Overlays','Overlays : enables navigation using a page sized overlay, when enabled links inside the content will not be clickable'),
+                CheckboxField::create('Tabs','Tabs : adds tabs along the top of the pages'),
+                NumericField::create('TabWidth','Tab Width : set the width of the tabs'),
+                NumericField::create('TabHeight','Tab Height : set the height of the tabs'),                
+                TextField::create('NextControlText','Next Control Text : set the inline text for all next controls (tabs, arrows, etc'),
+                TextField::create('PreviousControlText','Previous Control Text : set the inline text for all previous controls (tabs, arrows, etc.)'),
+                TextField::create('NextControlTitle','Next Control Title : set the text for the title attributes of all next controls (tabs, arrows, etc)'),
+                TextField::create('PreviousControlTitle','Previous Control Title : set text for title attributes of all previous controls (tabs, arrows, etc.)'),
+                CheckboxField::create('Arrows','Arrows : adds arrows overlayed over the book edges'),
+                CheckboxField::create('ArrowsHide','Arrows Hide : auto hides arrows when controls are not hovered'),
+                TextField::create('Cursor','Cursor : cursor css setting for side bar areas'),
+                CheckboxField::create('Hash','Hash : enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with "hash" enabled'),
+                TextField::create('HashTitleText','Hash Title Text : text which forms the hash page title'),                
+                TextField::create('Next','Next : selector for element to use as click trigger for next page'),
+                TextField::create('Prev','Prev : selector for element to use as click trigger for previous page'),
+                CheckboxField::create('Auto','Auto : enables automatic navigation, requires "delay"'),
+                NumericField::create('Delay','Delay : amount of time between automatic page flipping'),
+                TextField::create('Pause','Pause : selector for element to use as click trigger for pausing auto page flipping'),
+                TextField::create('Play','Play : selector for element to use as click trigger for restarting auto page flipping'),
+                TextField::create('BookletMenu','Menu : selector for element to use as the menu area, required for "pageSelector"'),
+                CheckboxField::create('PageSelector','Page Selector : enables navigation with a dropdown menu of pages, requires "menu"'),
+                CheckboxField::create('ChapterSelector','Chapter Selector : enables navigation with a dropdown menu of chapters, determined by the "rel" attribute, requires "menu"'),                
             )
         );
         
-        $fields->addFieldsToTab('Root.Content.Shadows',
+        $fields->addFieldsToTab('Root.Shadows',
             array(
-                new CheckboxField('Shadows','Shadows : display shadows on page animations'),
-                new NumericField('ShadowTopFwdWidth','Shadow Top Fwd Width : shadow width for top forward anim'),
-                new NumericField('ShadowTopBackWidth','Shadow Top Back Width : shadow width for top back anim'),
-                new NumericField('ShadowBtmWidth','Shadow Btm Width : shadow width for bottom shadow'),    
+                CheckboxField::create('Shadows','Shadows : display shadows on page animations'),
+                NumericField::create('ShadowTopFwdWidth','Shadow Top Fwd Width : shadow width for top forward anim'),
+                NumericField::create('ShadowTopBackWidth','Shadow Top Back Width : shadow width for top back anim'),
+                NumericField::create('ShadowBtmWidth','Shadow Btm Width : shadow width for bottom shadow'),    
             )
         );
         
@@ -260,7 +260,7 @@ class BookletHolder extends Page {
     
     function getCMSValidator() 
     { 
-      return new RequiredFields('Name','Width','Height','Speed'); 
+      return RequiredFields('Name','Width','Height','Speed'); 
     }    
 }
 
@@ -278,10 +278,10 @@ class BookletHolder_Controller extends Page_Controller {
         Requirements::block('sapphire/javascript/lang/en_US.js');                                 
         
         //Requirements::javascript("//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js");
-        Requirements::javascript("booklet/javascript/jquery-ui.min.1.8.21.js");
+        Requirements::javascript("booklet/javascript/jquery-ui-1.10.1.custom.min.js");
         Requirements::javascript("booklet/javascript/jquery.easing.1.3.js");
-        Requirements::javascript("booklet/javascript/jquery.booklet.1.4.0.js");
-        Requirements::css("booklet/css/jquery.booklet.1.4.0.css");
+        Requirements::javascript("booklet/javascript/jquery.booklet.1.4.2.js");
+        Requirements::css("booklet/css/jquery.booklet.1.4.2.css");
         SSViewer::setOption('rewriteHashlinks', false);
         if ( $this->MoleskineTheme == 1 )
             Requirements::css("booklet/css/moleskine.css");
