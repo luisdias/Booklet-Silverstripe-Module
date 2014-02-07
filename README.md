@@ -1,5 +1,11 @@
 # Booklet Silverstripe Module  
 
+**Changelog for version 0.2**  
+* enhancement: update to jQuery Booklet plugin version 1.4.0  
+* enhancement: update to jQuery version 1.9.0
+* enhancement: major layout improvements  
+* Silverstripe 2.4x module  
+
 ## Author contact  
 Luis E. S. Dias  
 smartbyte.systems@gmail.com  
@@ -11,7 +17,7 @@ Silverstripe module to display content in a flipbook layout
 https://github.com/luisdias/Booklet-Silverstripe-Module
 
 ## Notes  
-jQuery libray loaded from Google at BookletHolder.ss file  
+jQuery, jQuery UI and jQuery easing are loaded at BookletHolder_Controller init method  
 
 The Booklet Silverstripe Module is based on:  
 
