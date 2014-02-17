@@ -178,7 +178,7 @@ class BookletHolder extends Page {
         );
         
         $fields = parent::getCMSFields();
-        $fields->addFieldToTab('Root.Main',CheckboxField('MoleskineTheme','Use Moleskine theme by Codrops ( forces width to 800 and height to 500 )'),'Content');
+        $fields->addFieldToTab('Root.Main',CheckboxField::create('MoleskineTheme','Use Moleskine theme by Codrops ( forces width to 800 and height to 500 )'),'Content');
         $fields->addFieldsToTab('Root.General',
             array(
                 TextField::create('Name','Name : name of the booklet to display in the document title bar'),
@@ -248,10 +248,10 @@ class BookletHolder extends Page {
         
         $fields->addFieldsToTab('Root.Shadows',
             array(
-                CheckboxField('Shadows','Shadows : display shadows on page animations'),
-                NumericField('ShadowTopFwdWidth','Shadow Top Fwd Width : shadow width for top forward anim'),
-                NumericField('ShadowTopBackWidth','Shadow Top Back Width : shadow width for top back anim'),
-                NumericField('ShadowBtmWidth','Shadow Btm Width : shadow width for bottom shadow'),    
+                CheckboxField::create('Shadows','Shadows : display shadows on page animations'),
+                NumericField::create('ShadowTopFwdWidth','Shadow Top Fwd Width : shadow width for top forward anim'),
+                NumericField::create('ShadowTopBackWidth','Shadow Top Back Width : shadow width for top back anim'),
+                NumericField::create('ShadowBtmWidth','Shadow Btm Width : shadow width for bottom shadow'),    
             )
         );
         
