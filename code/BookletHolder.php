@@ -260,7 +260,7 @@ class BookletHolder extends Page {
     
     function getCMSValidator() 
     { 
-      return RequiredFields('Name','Width','Height','Speed'); 
+      return new RequiredFields(array('Name','Width','Height','Speed')); 
     }    
 }
 
